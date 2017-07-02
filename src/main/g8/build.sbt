@@ -6,7 +6,7 @@ version := "$version$"
 
 libraryDependencies ++= Seq(
     "log4j" % "log4j" % "1.2.14",
-    "org.scalatest"    %% "scalatest"  % "2.2.1" % "test"
+    "org.scalatest"    %% "scalatest"  % "3.0.1" % "test"
 )
 
 scalacOptions ++= Seq(
