@@ -5,7 +5,7 @@ scalaVersion := "$scala_version$"
 version := "$version$"
 
 libraryDependencies ++= Seq(
-    "log4j" % "log4j" % "1.2.14",
+    "log4j" % "log4j" % "1.2.17",
     "org.scalatest"    %% "scalatest"  % "3.0.5" % "test"
 )
 
