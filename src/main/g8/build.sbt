@@ -1,14 +1,15 @@
-name := "Test2"
+name := "$name$"
 
-version := "1.0.0"
+version := "$version$"
 
-scalaVersion := "2.11.8"
+scalaVersion := "$scala_version$"
 
 libraryDependencies ++= Seq(
+  "org.scalatest"    %% "scalatest"  % "3.0.5" % "test",
   "log4j"            % "log4j"       % "1.2.17",
-  "org.apache.spark" %% "spark-sql"  % "2.3.2",
-  "org.apache.spark" %% "spark-hive" % "2.3.2",
-  "org.apache.spark" %% "spark-yarn" % "2.3.2"
+  "org.apache.spark" %% "spark-sql"  % "$spark_version$",
+  "org.apache.spark" %% "spark-hive" % "$spark_version$",
+  "org.apache.spark" %% "spark-yarn" % "$spark_version$"
   // "org.apache.spark" % "spark-hive_2.11" % "2.0.0.2.5.3.0-37"  excludeAll(ExclusionRule(organization = "org.spark-project.hive"))
 )
 
