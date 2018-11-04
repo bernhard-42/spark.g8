@@ -1,5 +1,5 @@
 /**
-    Copyright 2017 Bernhard Walter
+    Copyright 2018 Bernhard Walter
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,13 +17,43 @@
 
 package $package$
 
-class $name$ {
+import java.io.File
 
-}
+import org.apache.spark.SparkConf
+import org.apache.spark.sql
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
 
-object $name$ {
-    def main(args: Array[String]) = {
-        val name = "$name$"
-        println(name)
+// For implicit conversions like converting RDDs to DataFrames
+// import org.apache.spark.implicits._
+
+import scala.collection.JavaConverters._
+import scala.collection.JavaConversions._
+
+import org.apache.log4j.{Level, Logger}
+
+
+object Test2 {
+
+    def main(args: Array[String]) {
+        val appName = "MyApp"
+        val warehouseLocation = new File("spark-warehouse").getAbsolutePath
+
+        val spark = SparkSession
+            .builder()
+            .appName(appName)
+            .config("spark.sql.warehouse.dir", warehouseLocation)
+            .config("spark.master", "yarn")
+            .config("spark.submit.deployMode", "client")
+            .config("spark.hadoop.yarn.resourcemanager.hostname", "$resourcemanager")
+            .config("spark.hadoop.yarn.resourcemanager.address", "$resourcemanager:resourcemanager_port")
+            .config("spark.yarn.access.hadoopFileSystems", "$hadoopfs")
+            .config("spark.yarn.stagingDir", "$hadoop_fs/user/$hadoop_user/")
+            .enableHiveSupport()
+            .getOrCreate()
+
+        println(s"Hello Spark")
+        spark.stop()
     }
 }
+

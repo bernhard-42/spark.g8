@@ -1,16 +1,43 @@
-name := "$name$"
+name := "Test2"
 
-scalaVersion := "$scala_version$"
+version := "1.0.0"
 
-version := "$version$"
+scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-    "log4j" % "log4j" % "1.2.17",
-    "org.scalatest"    %% "scalatest"  % "3.0.5" % "test"
+  "log4j"            % "log4j"       % "1.2.17",
+  "org.apache.spark" %% "spark-sql"  % "2.3.2",
+  "org.apache.spark" %% "spark-hive" % "2.3.2",
+  "org.apache.spark" %% "spark-yarn" % "2.3.2"
+  // "org.apache.spark" % "spark-hive_2.11" % "2.0.0.2.5.3.0-37"  excludeAll(ExclusionRule(organization = "org.spark-project.hive"))
 )
 
-scalacOptions ++= Seq(
-  "-unchecked",
-  "-deprecation",
-  "-feature"
-)
+assemblyMergeStrategy in assembly := {
+    case PathList("org",   "aopalliance",       xs @ _*) => MergeStrategy.last
+    case PathList("javax", "servlet",           xs @ _*) => MergeStrategy.last
+    case PathList("javax", "inject",            xs @ _*) => MergeStrategy.last
+    case PathList("javax", "xml",               xs @ _*) => MergeStrategy.last
+    case PathList("javax", "activation",        xs @ _*) => MergeStrategy.last
+    case PathList("org",   "apache",            xs @ _*) => MergeStrategy.last
+    case PathList("com",   "google",            xs @ _*) => MergeStrategy.last
+    case PathList("com",   "esotericsoftware",  xs @ _*) => MergeStrategy.last
+    case PathList("com",   "codahale",          xs @ _*) => MergeStrategy.last
+    case PathList("com",   "yammer",            xs @ _*) => MergeStrategy.last
+    case PathList("org",   "objenesis",         xs @ _*) => MergeStrategy.last
+
+    case "about.html"                                    => MergeStrategy.rename
+    case "META-INF/ECLIPSEF.RSA"                         => MergeStrategy.last
+    case "META-INF/mailcap"                              => MergeStrategy.last
+    case "META-INF/mimetypes.default"                    => MergeStrategy.last
+    case "plugin.properties"                             => MergeStrategy.last
+    case "log4j.properties"                              => MergeStrategy.last
+    case "git.properties"                                => MergeStrategy.last
+    case "codegen/config.fmpp"                           => MergeStrategy.rename
+    case "plugin.xml"                                    => MergeStrategy.rename
+    case "parquet.thrift"                                => MergeStrategy.rename
+
+    case x =>
+        val oldStrategy = (assemblyMergeStrategy in assembly).value
+        oldStrategy(x)
+}
+
