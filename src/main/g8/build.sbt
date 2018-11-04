@@ -13,7 +13,8 @@ libraryDependencies ++= Seq(
   // "org.apache.spark" % "spark-hive_2.11" % "2.0.0.2.5.3.0-37"  excludeAll(ExclusionRule(organization = "org.spark-project.hive"))
 )
 
-assemblyOutputPath in assembly := baseDirectory.value / "assembly/target" / ("scala-" + scalaVersion.value.substring(0, 4)) / "jars"
+assemblyOutputPath in assembly := baseDirectory.value / "assembly/target" / ("scala-" + scalaVersion.value.substring(0, 4)) / "jars" /
+                                  (assemblyJarName in assembly).value
 
 assemblyMergeStrategy in assembly := {
     case PathList("org",   "aopalliance",       xs @ _*) => MergeStrategy.last

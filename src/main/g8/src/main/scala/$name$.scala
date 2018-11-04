@@ -52,6 +52,8 @@ object Test2 {
             .enableHiveSupport()
             .getOrCreate()
 
+        spark.sparkContext.setLogLevel("ERROR")
+
         println(s"Hello Spark")
         spark.stop()
     }
